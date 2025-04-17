@@ -1,6 +1,4 @@
-@tool
-class_name Base32768 extends Resource
-
+class_name base_32768 extends Node
 ## Helper class for encoding and decoding base32768 data.
 ##
 ## Base32768 is a binary encoding optimised for UTF-16-encoded text.
@@ -10,15 +8,14 @@ class_name Base32768 extends Resource
 ## Link to the original repository : [url]https://github.com/qntm/base32768[/url]
 ## [br]
 ## [codeblock]var toTranslate = "testma"
-## var base = Base32768.new()
 ##
 ## toTranslate.to_utf8_buffer()
 ## # [116, 101, 115, 116, 109, 97]
 ##
-## var encoded = base.encode(toTranslate.to_utf8_buffer())
+## var encoded = Base32768.encode(toTranslate.to_utf8_buffer())
 ## # "悒茽㇌Ɵ"
 ##
-## var decoded = base.decode(encoded)
+## var decoded = Base32768.decode(encoded)
 ## # [116, 101, 115, 116, 109, 97, 0, 0]
 ##
 ## decoded.get_string_from_utf8()
