@@ -21,3 +21,12 @@ var decoded = Base32768.decode(encoded)
 decoded.get_string_from_utf8()
 # "tesma"
 ```
+```gdscript
+var toTranslate = { "test": "testma", "yes": "no" }
+
+var encoded = Base32768.Oencode(toTranslate)
+# "揥☽Ⰾ嶢㠑ݩ輪駔崐滫ᄤ䷶凹⚈暤铏㝅䖿"
+
+var decoded = Base32768.Odecode(encoded)
+# { "test": "testma", "yes": "no" }
+```

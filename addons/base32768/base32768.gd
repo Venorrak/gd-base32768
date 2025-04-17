@@ -1,4 +1,4 @@
-class_name base_32768 extends Node
+class_name base32768 extends Node
 ## Helper class for encoding and decoding base32768 data.
 ##
 ## Base32768 is a binary encoding optimised for UTF-16-encoded text.
@@ -21,7 +21,13 @@ class_name base_32768 extends Node
 ## decoded.get_string_from_utf8()
 ## # "tesma"
 ##[/codeblock]
-
+##[codeblock]var toTranslate = { "test": "testma", "yes": "no" }
+##
+## var encoded = Base32768.Oencode(toTranslate)
+## # "揥☽Ⰾ嶢㠑ݩ輪駔崐滫ᄤ䷶凹⚈暤铏㝅䖿"
+##
+## var decoded = Base32768.Odecode(encoded)
+## # { "test": "testma", "yes": "no" }[/codeblock]
 
 
 const BITS_PER_CHAR = 15
@@ -81,6 +87,11 @@ func encode(data : PackedByteArray) -> String:
 		str += lookup_e[num_z_bits][z]
 	return str
 
+## Converts any object into a compressed String
+func Oencode(object) -> String:
+	var str : String = var_to_str(object)
+	return encode(str.to_utf8_buffer())
+
 ## Converts a Base32768 encoded string into a utf8 PackedByteArray.
 ## [br]
 ## [color=red]Warning[/color] : the function will push an error and return an empty PackedByteArray if the decoding fails.
@@ -115,6 +126,11 @@ func decode(str : String) -> PackedByteArray:
 		push_error("Padding mismatch")
 		return PackedByteArray()
 	return result
+
+## Converts a Base32768 encoded string into a variable
+func Odecode(str : String):
+	var decoded : PackedByteArray = decode(str)
+	return str_to_var(decoded.get_string_from_utf8())
 
 ## Returns a string as an array containing each characters.
 ## [br]
