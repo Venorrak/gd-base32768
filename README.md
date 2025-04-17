@@ -8,15 +8,14 @@ Link to the original repository : https://github.com/qntm/base32768
 
 ```gdscript
 var toTranslate = "testma"
-var base = Base32768.new()
 
 toTranslate.to_utf8_buffer()
 # [116, 101, 115, 116, 109, 97]
 
-var encoded = base.encode(toTranslate.to_utf8_buffer())
+var encoded = Base32768.encode(toTranslate.to_utf8_buffer())
 # "悒茽㇌Ɵ"
 
-var decoded = base.decode(encoded)
+var decoded = Base32768.decode(encoded)
 # [116, 101, 115, 116, 109, 97, 0, 0]
 
 decoded.get_string_from_utf8()
