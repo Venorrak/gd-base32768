@@ -1,4 +1,4 @@
-class_name base32768 extends Node
+class_name Base32768 extends Object
 ## Helper class for encoding and decoding base32768 data.
 ##
 ## Base32768 is a binary encoding optimised for UTF-16-encoded text.
@@ -29,23 +29,22 @@ class_name base32768 extends Node
 ## var decoded = Base32768.Odecode(encoded)
 ## # { "test": "testma", "yes": "no" }[/codeblock]
 
-
-const BITS_PER_CHAR = 15
-const BITS_PER_BYTE = 8
+## don't touch
+static var BITS_PER_CHAR = 15
+## don't touch
+static var BITS_PER_BYTE = 8
 
 ## don't touch
-var pair_strings : PackedStringArray = [
+static var pair_strings : PackedStringArray = [
 	"ҠҿԀԟڀڿݠޟ߀ߟကဟႠႿᄀᅟᆀᆟᇠሿበቿዠዿጠጿᎠᏟᐠᙟᚠᛟកសᠠᡟᣀᣟᦀᦟ᧠᧿ᨠᨿᯀᯟᰀᰟᴀᴟ⇠⇿⋀⋟⍀⏟␀␟─❟➀➿⠀⥿⦠⦿⨠⩟⪀⪿⫠⭟ⰀⰟⲀⳟⴀⴟⵀⵟ⺠⻟㇀㇟㐀䶟䷀龿ꀀꑿ꒠꒿ꔀꗿꙀꙟꚠꛟ꜀ꝟꞀꞟꡀꡟ",
 	"ƀƟɀʟ"
 ]
-
 ## don't touch
-var lookup_e = {}
-
+static var lookup_e = {}
 ## don't touch
-var lookup_d = {}
+static var lookup_d = {}
 
-func _init():
+static func _static_init():
 	for r in pair_strings.size():
 		var pair_string : Array[String] = get_array_from_string(pair_strings[r])
 		var encode_repertoire : Array = []
@@ -63,7 +62,7 @@ func _init():
 ## Converts a PackedByteArray into a compressed String.
 ## [br]
 ## The PackedByteArray has to be a String represented in utf8.
-func encode(data : PackedByteArray) -> String:
+static func encode(data : PackedByteArray) -> String:
 	var length : int = data.size()
 	var str : String = ""
 	var z = 0
@@ -88,14 +87,14 @@ func encode(data : PackedByteArray) -> String:
 	return str
 
 ## Converts any object into a compressed String
-func Oencode(object) -> String:
+static func Oencode(object) -> String:
 	var str : String = var_to_str(object)
 	return encode(str.to_utf8_buffer())
 
 ## Converts a Base32768 encoded string into a utf8 PackedByteArray.
 ## [br]
 ## [color=red]Warning[/color] : the function will push an error and return an empty PackedByteArray if the decoding fails.
-func decode(str : String) -> PackedByteArray:
+static func decode(str : String) -> PackedByteArray:
 	var length : int = str.length()
 	var result : PackedByteArray = PackedByteArray()
 	result.resize(int(ceil(float(length * BITS_PER_CHAR) / BITS_PER_BYTE)))
@@ -128,14 +127,14 @@ func decode(str : String) -> PackedByteArray:
 	return result
 
 ## Converts a Base32768 encoded string into a variable
-func Odecode(str : String):
+static func Odecode(str : String):
 	var decoded : PackedByteArray = decode(str)
 	return str_to_var(decoded.get_string_from_utf8())
 
 ## Returns a string as an array containing each characters.
 ## [br]
 ## Maybe I'm dumb but I didn't see any built-in function that did the same thing ?
-func get_array_from_string(input : String) -> Array[String]:
+static func get_array_from_string(input : String) -> Array[String]:
 	var rep : Array[String] = []
 	for i in input.length():
 		rep.append(input[i])
